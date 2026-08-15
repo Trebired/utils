@@ -2,6 +2,11 @@
 
 All notable package changes are documented here.
 
+## 0.3.0
+
+- Added shared normalizer, formatting, record, graph, HTML, id, time, timer, and small logic helpers to the root API.
+- Kept public exports root-only while expanding the browser-safe root bundle.
+
 ## 0.2.5
 
 - Added a root-only browser condition so browser bundles use the browser-safe helper surface.

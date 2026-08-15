@@ -18,20 +18,35 @@ function verifyPureHelpers() {
     clonePlain,
     compactArray,
     compactRecord,
+    escapeHtml,
     envToken,
+    formatBytes,
     firstString,
+    graphRightDetails,
     isPlainObject,
     isTruthy,
+    normalizers,
+    randomToken,
+    safeDomId,
     slugText,
     toPositiveInteger,
+    toStrictInteger,
     toString,
     toTrimmedString,
   } = root;
   assert.equal(toString(null, "fallback"), "fallback");
+  assert.equal(toString("  value  "), "  value  ");
   assert.equal(toTrimmedString("  value  "), "value");
+  assert.equal(normalizers.toString("  value  "), "value");
+  assert.equal(toStrictInteger("1.5", null), null);
   assert.equal(slugText("Hello, World"), "hello-world");
+  assert.equal(safeDomId("A B"), "A_B");
   assert.equal(envToken("hello-world"), "HELLO_WORLD");
   assert.equal(firstString(["", "next"]), "next");
+  assert.equal(formatBytes(1024), "1.0 KB");
+  assert.equal(escapeHtml("<tag>"), "&lt;tag&gt;");
+  assert.equal(graphRightDetails(100).length, 5);
+  assert.equal(typeof randomToken(8), "string");
   assert.equal(isPlainObject(Object.create(null)), true);
   assert.equal(isPlainObject(new Date()), false);
   assert.equal(isTruthy("yes"), true);
