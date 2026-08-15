@@ -35,7 +35,12 @@ function readPackageJson(workspaceDir: unknown): PackageJson | null {
 }
 
 function readPackageJsonPath(packageJsonPath: unknown): PackageJson | null {
-  return packageJsonObject(readJsonFile(packageJsonPath));
+  const direct = packageJsonObject(readJsonFile(packageJsonPath));
+  if (direct) return direct;
+  const target = toTrimmedString(packageJsonPath);
+  if (path.basename(target) !== "package.json") return null;
+  const found = findPackageJson(path.dirname(target));
+  return found && found !== target ? packageJsonObject(readJsonFile(found)) : null;
 }
 
 function readPackageJsonUrl(packageJsonUrl: string | URL): PackageJson | null {

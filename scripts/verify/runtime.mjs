@@ -84,6 +84,7 @@ async function verifyPackageJsonHelpers() {
   }));
   assert.equal(findPackageJson(path.join(packageDir, "nested")), path.join(packageDir, "package.json"));
   assert.equal(readPackageJsonPath(path.join(packageDir, "package.json"))?.name, "@scope/example");
+  assert.equal(readPackageJsonPath(path.join(packageDir, "nested", "package.json"))?.name, "@scope/example");
   const identity = readProductIdentity({ startDir: path.join(packageDir, "nested") });
   assert.equal(identity.name, "Example App");
   assert.equal(identity.slug, "example-app");
