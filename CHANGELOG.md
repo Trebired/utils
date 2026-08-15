@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.2.5
+
+- Added a root-only browser condition so browser bundles use the browser-safe helper surface.
+
 ## 0.2.4
 
 - Made the package public API root-only and removed helper subpath exports.

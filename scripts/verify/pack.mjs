@@ -98,6 +98,7 @@ async function runConsumerSmokeTest(tarballPath) {
   runConsumerInstall(consumerDir);
   runConsumerTypecheck(consumerDir);
   runConsumerRuntime(consumerDir);
+  runConsumerBrowserBuild(consumerDir);
 }
 
 async function writeConsumerPackageJson(consumerDir, tarballPath) {
@@ -140,6 +141,11 @@ async function writeConsumerSourceFiles(consumerDir) {
       "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
       "console.log(slugText('Hello App'), parseEnvText('A=1').A, identity.version, forVersion);",
     ].join("\n"));
+  await fs.writeFile(path.join(consumerDir, "browser.ts"), [
+      'import { parseVersion, slugText } from "@trebired/utils";',
+      "",
+      "window.__utilsSmoke = [slugText('Hello App'), parseVersion('1.0.0')?.normalized];",
+    ].join("\n"));
 }
 
 async function writeConsumerTsconfig(consumerDir) {
@@ -172,6 +178,15 @@ function runConsumerTypecheck(consumerDir) {
 
 function runConsumerRuntime(consumerDir) {
   execFileSync(process.execPath, ["runtime.mjs"], { cwd: consumerDir, stdio: "inherit" });
+}
+
+function runConsumerBrowserBuild(consumerDir) {
+  execFileSync("bun", [
+      "build",
+      "browser.ts",
+      "--target=browser",
+      "--outdir=out",
+    ], { cwd: consumerDir, stdio: "inherit" });
 }
 
 function createNpmOptions(cwd) {

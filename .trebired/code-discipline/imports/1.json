@@ -5,6 +5,7 @@
   "#8jjudcbvq27r": "./src/version/index.ts",
   "#95xiky7hs01o": "./scripts/verify/pack.mjs",
   "#blmvdinpwsxc": "./scripts/verify/runtime.mjs",
+  "#bvb4yenohepr": "./src/browser.ts",
   "#dgcyl9mounsu": "./src/product/index.ts",
   "#f92lb4dxivu3": "./src/env/lines.ts",
   "#hel65rfkqdm4": "./scripts/build/generated/tsconfig.mjs",
