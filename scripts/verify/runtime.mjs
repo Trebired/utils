@@ -8,10 +8,6 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "trebired-utils-"));
 const root = await importDist("index.js");
-const env = await importDist("env/index.js");
-const packageJson = await importDist("package-json/index.js");
-const product = await importDist("product/index.js");
-const version = await importDist("version/index.js");
 
 function importDist(relativePath) {
   return import(pathToFileURL(path.join(rootDir, "dist", relativePath)).href);
@@ -53,7 +49,7 @@ async function verifyEnvHelpers() {
     writeEnvFileObject,
     writeEnvFileValue,
     writeProcessEnvObject,
-  } = env;
+  } = root;
   const envFile = path.join(tempRoot, ".env");
   assert.deepEqual(parseEnvText("export A=1\nB=\"two\"\n# skip\n"), { A: "1", B: "two" });
   writeEnvFileValue(envFile, "NAME", "Operlorn");
@@ -67,8 +63,7 @@ async function verifyEnvHelpers() {
 }
 
 async function verifyPackageJsonHelpers() {
-  const { findPackageJson, readPackageJsonPath } = packageJson;
-  const { readProductIdentity } = product;
+  const { findPackageJson, readPackageJsonPath, readProductIdentity } = root;
   const packageDir = path.join(tempRoot, "package");
   await fs.mkdir(path.join(packageDir, "nested"), { recursive: true });
   await fs.writeFile(path.join(packageDir, "package.json"), JSON.stringify({
@@ -98,7 +93,7 @@ function verifyVersionHelpers() {
     isCompatibleVersion,
     parseVersion,
     resolveForVersion,
-  } = version;
+  } = root;
   assert.equal(parseVersion("v6.5.1")?.normalized, "6.5.1");
   assert.equal(isCompatibleVersion("6.5.0", "6.5.99"), true);
   assert.equal(isCompatibleVersion("6.6.0", "6.5.99"), false);

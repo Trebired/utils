@@ -1,7 +1,7 @@
 {
   "name": "@trebired/utils",
-  "version": "0.2.3",
-  "description": "Shared Trebired utility helpers for pure value normalization, environment files, package metadata, and product identity.",
+  "version": "0.2.4",
+  "description": "Shared Trebired utility helpers.",
   "type": "module",
   "private": false,
   "license": "MIT",
@@ -21,22 +21,6 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./env": {
-      "import": "./dist/env/index.js",
-      "types": "./dist/env/index.d.ts"
-    },
-    "./package-json": {
-      "import": "./dist/package-json/index.js",
-      "types": "./dist/package-json/index.d.ts"
-    },
-    "./product": {
-      "import": "./dist/product/index.js",
-      "types": "./dist/product/index.d.ts"
-    },
-    "./version": {
-      "import": "./dist/version/index.js",
-      "types": "./dist/version/index.d.ts"
     }
   },
   "files": [
@@ -66,8 +50,6 @@
   "keywords": [
     "utils",
     "environment",
-    "package-json",
-    "product",
     "trebired"
   ],
   "repository": {

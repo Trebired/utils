@@ -15,6 +15,7 @@ async function main() {
   const tarballPath = packPackage();
   const tarballEntries = listTarEntries(tarballPath);
   const packageJson = readPackedPackageJson(tarballPath);
+  validatePublicExports(packageJson);
   validatePackedEntrypoints(packageJson, tarballEntries);
   validatePackedImports(packageJson, tarballEntries);
   await runConsumerSmokeTest(tarballPath);
@@ -41,6 +42,13 @@ function readPackedPackageJson(tarballPath) {
       encoding: "utf8",
   });
   return JSON.parse(stdout);
+}
+
+function validatePublicExports(packageJson) {
+  const exports = Object.keys(packageJson.exports || {});
+  if (exports.length !== 1 || exports[0] !== ".") {
+    throw new Error(`Unexpected public exports: ${exports.join(", ")}`);
+  }
 }
 
 function validatePackedEntrypoints(packageJson, tarballEntries) {
