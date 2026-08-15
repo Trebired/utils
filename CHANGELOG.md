@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.2.3
+
+- Re-exported env, package-json, product, and version helpers from the root package import.
+
 ## 0.2.2
 
 - Made package-json URL reads fall back to the nearest package manifest when promoted dist files resolve beside `dist`.

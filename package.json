@@ -1,6 +1,6 @@
 {
   "name": "@trebired/utils",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Shared Trebired utility helpers for pure value normalization, environment files, package metadata, and product identity.",
   "type": "module",
   "private": false,

@@ -109,9 +109,9 @@ async function writeConsumerPackageJson(consumerDir, tarballPath) {
 async function writeConsumerSourceFiles(consumerDir) {
   await fs.writeFile(path.join(consumerDir, "index.ts"), [
       'import { slugText } from "@trebired/utils";',
-      'import { parseEnvText } from "@trebired/utils/env";',
-      'import { readProductIdentity } from "@trebired/utils/product";',
-      'import { assertCompatibleForVersion } from "@trebired/utils/version";',
+      'import { parseEnvText } from "@trebired/utils";',
+      'import { readProductIdentity } from "@trebired/utils";',
+      'import { assertCompatibleForVersion } from "@trebired/utils";',
       "",
       'const slug: string = slugText("Hello App");',
       'const env = parseEnvText("A=1");',
@@ -124,9 +124,9 @@ async function writeConsumerSourceFiles(consumerDir) {
     ].join("\n"));
   await fs.writeFile(path.join(consumerDir, "runtime.mjs"), [
       'import { slugText } from "@trebired/utils";',
-      'import { parseEnvText } from "@trebired/utils/env";',
-      'import { readProductIdentity } from "@trebired/utils/product";',
-      'import { assertCompatibleForVersion } from "@trebired/utils/version";',
+      'import { parseEnvText } from "@trebired/utils";',
+      'import { readProductIdentity } from "@trebired/utils";',
+      'import { assertCompatibleForVersion } from "@trebired/utils";',
       "",
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
       "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
