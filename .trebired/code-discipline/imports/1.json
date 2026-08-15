@@ -1,0 +1,19 @@
+{
+  "#3z8gicoc3at5": "./src/pure/booleans.ts",
+  "#5q6azwe3z8lo": "./src/pure/numbers.ts",
+  "#7e2z555nahj1": "./src/pure/arrays.ts",
+  "#95xiky7hs01o": "./scripts/verify/pack.mjs",
+  "#blmvdinpwsxc": "./scripts/verify/runtime.mjs",
+  "#dgcyl9mounsu": "./src/product/index.ts",
+  "#f92lb4dxivu3": "./src/env/lines.ts",
+  "#hel65rfkqdm4": "./scripts/build/generated/tsconfig.mjs",
+  "#mxr3q1mg7lii": "./src/env/file.ts",
+  "#ovujy5t75bko": "./.trebired/logger/config.ts",
+  "#p8tqzyrg2ti6": "./src/env/index.ts",
+  "#qq7cai69xrsh": "./src/env/process.ts",
+  "#r0il9c3mxso3": "./scripts/prepare-dist.mjs",
+  "#uknlf3i5jtc0": "./src/pure/records.ts",
+  "#v4q9hvcepeuc": "./src/package-json/index.ts",
+  "#w9bojhprv1qz": "./src/index.ts",
+  "#zzc604sab5c7": "./src/pure/text.ts"
+}
