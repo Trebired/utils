@@ -50,14 +50,14 @@ function assertCompatibleForVersion(options: ForVersionValidationOptions): strin
   const forVersionText = toTrimmedString(options.forVersion);
   if (!forVersionText) {
     if (options.requireForVersion === false) return expectedText;
-    throw new Error(`${label} config is missing forVersion: ${source}`);
+    throwVersionConfigFailure(`${label} config is missing forVersion: ${source}`);
   }
   const expected = parseVersion(expectedText);
   const actual = parseVersion(forVersionText);
-  if (!actual) throw new Error(`${label} config forVersion is invalid: ${source}`);
+  if (!actual) throwVersionConfigFailure(`${label} config forVersion is invalid: ${source}`);
   if (!expected) return forVersionText;
   if (!isCompatibleVersion(actual, expected, options.compatibility)) {
-    throw new Error(`${label} config targets ${forVersionText} but package is ${expectedText}`);
+    throwVersionConfigFailure(`${label} config targets ${forVersionText} but package is ${expectedText}`);
   }
   return forVersionText;
 }
@@ -96,6 +96,10 @@ function describeVersionSource(options: ForVersionValidationOptions): string {
 
 function versionLabel(options: ForVersionValidationOptions): string {
   return toTrimmedString(options.label || options.packageName) || "package";
+}
+
+function throwVersionConfigFailure(message: string): never {
+  throw `[FAIL, config.version] ${message}`;
 }
 
 function isVersionParts(value: unknown): value is VersionParts {

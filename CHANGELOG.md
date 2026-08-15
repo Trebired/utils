@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.4.4
+
+- Made package `forVersion` validation failures emit compact config diagnostics instead of uncaught `Error` source-frame dumps.
+
 ## 0.4.3
 
 - Extended `nowIso()` to accept existing date, timestamp, or ISO-compatible string inputs.
