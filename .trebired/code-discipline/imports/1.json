@@ -2,6 +2,7 @@
   "#3z8gicoc3at5": "./src/pure/booleans.ts",
   "#5q6azwe3z8lo": "./src/pure/numbers.ts",
   "#7e2z555nahj1": "./src/pure/arrays.ts",
+  "#8jjudcbvq27r": "./src/version/index.ts",
   "#95xiky7hs01o": "./scripts/verify/pack.mjs",
   "#blmvdinpwsxc": "./scripts/verify/runtime.mjs",
   "#dgcyl9mounsu": "./src/product/index.ts",

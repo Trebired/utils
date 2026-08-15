@@ -1,6 +1,6 @@
 {
   "name": "@trebired/utils",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared Trebired utility helpers for pure value normalization, environment files, package metadata, and product identity.",
   "type": "module",
   "private": false,
@@ -33,6 +33,10 @@
     "./product": {
       "import": "./dist/product/index.js",
       "types": "./dist/product/index.d.ts"
+    },
+    "./version": {
+      "import": "./dist/version/index.js",
+      "types": "./dist/version/index.d.ts"
     }
   },
   "files": [

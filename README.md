@@ -14,6 +14,7 @@ Node and filesystem helpers are explicit subpath imports:
 import { readEnvFile } from "@trebired/utils/env";
 import { readPackageJson } from "@trebired/utils/package-json";
 import { readProductIdentity } from "@trebired/utils/product";
+import { assertCompatibleForVersion } from "@trebired/utils/version";
 ```
 
 ## Exports
@@ -22,3 +23,4 @@ import { readProductIdentity } from "@trebired/utils/product";
 - `@trebired/utils/env`: env text parsing, env file reads/writes, and process env helpers.
 - `@trebired/utils/package-json`: package manifest reads and metadata normalization.
 - `@trebired/utils/product`: product identity and product naming helpers.
+- `@trebired/utils/version`: package `forVersion` validation helpers.

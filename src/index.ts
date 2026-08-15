@@ -30,4 +30,15 @@ export {
   toTrimmedString,
   uniqueStrings,
 } from "./pure/text.js";
+export {
+  assertCompatibleForVersion,
+  isCompatibleVersion,
+  parseVersion,
+  resolveForVersion,
+} from "./version/index.js";
 export type { PlainRecord } from "./pure/records.js";
+export type {
+  ForVersionValidationOptions,
+  VersionCompatibility,
+  VersionParts,
+} from "./version/index.js";

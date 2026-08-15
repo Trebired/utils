@@ -111,21 +111,26 @@ async function writeConsumerSourceFiles(consumerDir) {
       'import { slugText } from "@trebired/utils";',
       'import { parseEnvText } from "@trebired/utils/env";',
       'import { readProductIdentity } from "@trebired/utils/product";',
+      'import { assertCompatibleForVersion } from "@trebired/utils/version";',
       "",
       'const slug: string = slugText("Hello App");',
       'const env = parseEnvText("A=1");',
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
+      "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
       "void slug;",
       "void env;",
       "void identity;",
+      "void forVersion;",
     ].join("\n"));
   await fs.writeFile(path.join(consumerDir, "runtime.mjs"), [
       'import { slugText } from "@trebired/utils";',
       'import { parseEnvText } from "@trebired/utils/env";',
       'import { readProductIdentity } from "@trebired/utils/product";',
+      'import { assertCompatibleForVersion } from "@trebired/utils/version";',
       "",
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
-      "console.log(slugText('Hello App'), parseEnvText('A=1').A, identity.version);",
+      "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
+      "console.log(slugText('Hello App'), parseEnvText('A=1').A, identity.version, forVersion);",
     ].join("\n"));
 }
 

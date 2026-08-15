@@ -11,6 +11,7 @@ const root = await importDist("index.js");
 const env = await importDist("env/index.js");
 const packageJson = await importDist("package-json/index.js");
 const product = await importDist("product/index.js");
+const version = await importDist("version/index.js");
 
 function importDist(relativePath) {
   return import(pathToFileURL(path.join(rootDir, "dist", relativePath)).href);
@@ -85,11 +86,38 @@ async function verifyPackageJsonHelpers() {
   assert.equal(identity.version, "v1.2.3");
 }
 
+function verifyVersionHelpers() {
+  const {
+    assertCompatibleForVersion,
+    isCompatibleVersion,
+    parseVersion,
+    resolveForVersion,
+  } = version;
+  assert.equal(parseVersion("v6.5.1")?.normalized, "6.5.1");
+  assert.equal(isCompatibleVersion("6.5.0", "6.5.99"), true);
+  assert.equal(isCompatibleVersion("6.6.0", "6.5.99"), false);
+  assert.equal(assertCompatibleForVersion({
+        forVersion: "6.5.0",
+        label: "verify",
+        packageVersion: "6.5.99",
+    }), "6.5.0");
+  assert.equal(resolveForVersion({
+        packageVersion: "1.2.3",
+        requireForVersion: false,
+    }), "1.2.3");
+  assert.throws(() => assertCompatibleForVersion({
+        forVersion: "6.6.0",
+        label: "verify",
+        packageVersion: "6.5.99",
+    }), /targets 6\.6\.0/u);
+}
+
 async function main() {
   assert.ok(rootDir);
   verifyPureHelpers();
   await verifyEnvHelpers();
   await verifyPackageJsonHelpers();
+  verifyVersionHelpers();
   console.log("Runtime verification succeeded.");
 }
 
