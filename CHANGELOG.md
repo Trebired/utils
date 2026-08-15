@@ -2,6 +2,11 @@
 
 All notable package changes are documented here.
 
+## 0.4.0
+
+- Added shared text error/unique helpers, numeric integer set helpers, result metadata helpers, date label/partition formatting helpers, Node filesystem helpers, and SHA-256 hashing.
+- Expanded browser-safe exports for pure text, result, number, and time helpers.
+
 ## 0.3.1
 
 - Made `toArray()` default to `any[]` for compatibility with older object utility imports.

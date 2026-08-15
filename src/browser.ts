@@ -57,6 +57,7 @@ export {
   toNumberOrZero,
   toPositiveInteger,
   toStrictInteger,
+  uniquePositiveIntegers,
 } from "./pure/numbers.js";
 export {
   normalizers,
@@ -88,10 +89,18 @@ export {
   appendHistory,
   okResultDataObject,
   okResultList,
+  resultCommandOutput,
+  resultCommandPath,
+  resultData,
   resultDataObject,
+  resultDetails,
+  resultMeta,
+  resultMetaFlag,
+  resultMetaText,
 } from "./pure/result-data.js";
 export {
   envToken,
+  errorMessage,
   firstString,
   normalizedEntryValue,
   normalizedStringList,
@@ -109,6 +118,7 @@ export {
   toTrimmedString,
   tokenPreview,
   uniqueStringList,
+  uniqueText,
   uniqueStrings,
 } from "./pure/text.js";
 export {
@@ -127,13 +137,19 @@ export {
 export {
   elapsedMsBetween,
   elapsedMsSince,
+  formatAbsoluteDateTimeLabel,
+  formatClockTimeLabel,
+  formatUtcHourPartitionKey,
   isExpired,
   isoOrEmpty,
   monotonicMs,
   normalizeLocale,
   now,
   nowMs,
+  parseDateMs,
   parseDateMsOrNull,
+  time,
+  toDate,
   toDateMs,
   waitMs,
 } from "./pure/time.js";
@@ -168,7 +184,12 @@ export type {
 export type {
   StringListOptions,
   UniqueStringListOptions,
+  UniqueTextOptions,
 } from "./pure/text.js";
+export type {
+  TimeFormatOptions,
+  TimeStyle,
+} from "./pure/time.js";
 export type {
   IntervalRef,
   TimeoutRef,

@@ -9,6 +9,11 @@ type UniqueStringListOptions = StringListOptions& {
   skip?: readonly string[];
 };
 
+type UniqueTextOptions = {
+  exclude?: readonly unknown[];
+  lowerCase?: boolean;
+};
+
 function toString(value: unknown, fallback = ""): string {
   if (value == null) return fallback;
   const text = String(value);
@@ -101,6 +106,28 @@ function uniqueStrings(values: readonly unknown[]): string[] {
   return out;
 }
 
+function uniqueText(
+  values: unknown = [],
+  options: UniqueTextOptions | null = null,
+): string[] {
+  const cfg = options && typeof options === "object" ? options : {};
+  const exclude = new Set(
+    (Array.isArray(cfg.exclude) ? cfg.exclude : [])
+    .map((value) => toTrimmedString(value))
+    .filter(Boolean),
+  );
+
+  return uniqueStrings(Array.isArray(values) ? values : [])
+  .map((value) => (cfg.lowerCase === true ? value.toLowerCase() : value))
+  .filter((value) => value && !exclude.has(value));
+}
+
+function errorMessage(error: unknown): string {
+  return error && typeof error === "object" && "message"in error
+  ? String((error as { message?: unknown }).message)
+  : String(error);
+}
+
 function firstString(values: readonly unknown[], fallback = ""): string {
   for (const value of values) {
     const text = toTrimmedString(value);
@@ -177,6 +204,7 @@ function prefixIfMissing(
 
 export {
   envToken,
+  errorMessage,
   firstString,
   normalizedEntryValue,
   normalizedStringList,
@@ -194,6 +222,7 @@ export {
   toString,
   toTrimmedString,
   uniqueStringList,
+  uniqueText,
   uniqueStrings,
 };
-export type { StringListOptions, UniqueStringListOptions };
+export type { StringListOptions, UniqueStringListOptions, UniqueTextOptions };

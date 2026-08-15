@@ -80,8 +80,25 @@ function toLimitedInteger(
   return max == null ? Math.floor(parsed) : Math.min(Math.floor(parsed), max);
 }
 
-function clampPercent(value: unknown, fallback: unknown = 0): number {
-  return clampNumber(value, 0, 100, fallback);
+function clampPercent(value: unknown, fallback: null, digits?: unknown): number | null;
+function clampPercent(value: unknown, fallback?: unknown, digits?: unknown): number;
+function clampPercent(
+  value: unknown,
+  fallback: unknown = 0,
+  digits: unknown = null,
+): number | null {
+  const parsed = Number(value);
+  const next = Number.isFinite(parsed)
+  ? parsed
+  : fallback == null
+  ? null
+  : Number(fallback) || 0;
+  if (next == null) return null;
+
+  const clamped = clampNumber(next, 0, 100, 0);
+  if (!Number.isInteger(Number(digits))) return clamped;
+  const factor = Math.pow(10, Number(digits));
+  return Math.round(clamped * factor) / factor;
 }
 
 function clampPercentOrNull(value: unknown): number | null {
@@ -97,6 +114,20 @@ function roundedPercentOrNull(
   if (next == null) return null;
   const precision = Number.isInteger(digits) && digits >= 0 ? digits : 1;
   return clampPercent(Number(next.toFixed(precision)));
+}
+
+function uniquePositiveIntegers(values: unknown): number[] {
+  const seen = new Set<number>();
+  const out: number[] = [];
+
+  for (const value of Array.isArray(values) ? values : []) {
+    const next = toInteger(value, 0);
+    if (next <= 0 || seen.has(next)) continue;
+    seen.add(next);
+    out.push(next);
+  }
+
+  return out;
 }
 
 type MibToBytesOptions = {
@@ -131,5 +162,6 @@ export {
   toNumberOrZero,
   toPositiveInteger,
   toStrictInteger,
+  uniquePositiveIntegers,
 };
 export type { LimitedIntegerOptions, MibToBytesOptions };

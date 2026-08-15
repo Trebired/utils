@@ -3,6 +3,41 @@ import {
   toObject,
   toObjectOrNull,
 } from "./records.js";
+import { toTrimmedString } from "./text.js";
+
+function resultMeta(value: unknown): Record<string, any> {
+  const meta = (value as any)?.meta;
+  return meta && typeof meta === "object" && !Array.isArray(meta) ? meta : {};
+}
+
+function resultData(value: unknown): Record<string, any> {
+  const data = (value as any)?.data;
+  return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+}
+
+function resultDetails(value: unknown): string {
+  const meta = resultMeta(value);
+  return toTrimmedString(
+    (value as any)?.details || meta.detail || meta.stderr || meta.stdout,
+  );
+}
+
+function resultMetaText(value: unknown, key: string, fallback = ""): string {
+  const meta = resultMeta(value);
+  return toTrimmedString(meta[key], fallback);
+}
+
+function resultCommandPath(value: unknown, fallback = ""): string {
+  return resultMetaText(value, "command_path", fallback);
+}
+
+function resultCommandOutput(value: unknown): string {
+  return resultDetails(value);
+}
+
+function resultMetaFlag(value: unknown, key: string): boolean {
+  return resultMeta(value)[key] === true;
+}
 
 function resultDataObject(value: unknown): Record<string, any> {
   return toObject((value as any)?.data);
@@ -46,5 +81,12 @@ export {
   appendHistory,
   okResultDataObject,
   okResultList,
+  resultCommandOutput,
+  resultCommandPath,
+  resultData,
   resultDataObject,
+  resultDetails,
+  resultMeta,
+  resultMetaFlag,
+  resultMetaText,
 };

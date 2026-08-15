@@ -14,26 +14,31 @@ function importDist(relativePath) {
 }
 
 function verifyPureHelpers() {
+  verifyStringAndNumberHelpers();
+  verifyObjectAndRuntimeHelpers();
+}
+
+function verifyStringAndNumberHelpers() {
   const {
-    clonePlain,
-    compactArray,
-    compactRecord,
+    errorMessage,
     escapeHtml,
     envToken,
     formatBytes,
+    formatUtcHourPartitionKey,
     firstString,
-    graphRightDetails,
-    isPlainObject,
-    isTruthy,
     normalizers,
-    randomToken,
+    resultMetaText,
+    sha256Hex,
     safeDomId,
     slugText,
+    time,
     toPositiveInteger,
     toStrictInteger,
     toArray,
     toString,
     toTrimmedString,
+    uniquePositiveIntegers,
+    uniqueText,
   } = root;
   const defaultArray = toArray([1, 2]);
   defaultArray.push(3);
@@ -47,15 +52,34 @@ function verifyPureHelpers() {
   assert.equal(envToken("hello-world"), "HELLO_WORLD");
   assert.equal(firstString(["", "next"]), "next");
   assert.equal(formatBytes(1024), "1.0 KB");
+  assert.equal(errorMessage(new Error("failed")), "failed");
   assert.equal(escapeHtml("<tag>"), "&lt;tag&gt;");
+  assert.equal(formatUtcHourPartitionKey("2026-08-15T12:34:56.000Z"), "2026-08-15-12-0000");
+  assert.equal(resultMetaText({ meta: { stdout: "ok" } }, "stdout"), "ok");
+  assert.equal(sha256Hex("value").length, 64);
+  assert.equal(time("2026-08-15T12:34:56.000Z", "iso"), "2026-08-15T12:34:56.000Z");
+  assert.equal(toPositiveInteger("0", 3), 3);
+  assert.deepEqual(defaultArray, [1, 2, 3]);
+  assert.deepEqual(uniquePositiveIntegers([1, "2", 2, 0]), [1, 2]);
+  assert.deepEqual(uniqueText(["A", "A", "B"], { exclude: ["B"] }), ["A"]);
+}
+
+function verifyObjectAndRuntimeHelpers() {
+  const {
+    clonePlain,
+    compactArray,
+    compactRecord,
+    graphRightDetails,
+    isPlainObject,
+    isTruthy,
+    randomToken,
+  } = root;
   assert.equal(graphRightDetails(100).length, 5);
   assert.equal(typeof randomToken(8), "string");
   assert.equal(isPlainObject(Object.create(null)), true);
   assert.equal(isPlainObject(new Date()), false);
   assert.equal(isTruthy("yes"), true);
-  assert.equal(toPositiveInteger("0", 3), 3);
   assert.deepEqual(compactArray([1, null, 2]), [1, 2]);
-  assert.deepEqual(defaultArray, [1, 2, 3]);
   assert.deepEqual(compactRecord({ a: "", b: 2, c: null }), { b: 2 });
   assert.deepEqual(clonePlain({ a: [{ b: 1 }] }), { a: [{ b: 1 }] });
 }
@@ -82,7 +106,17 @@ async function verifyEnvHelpers() {
 }
 
 async function verifyPackageJsonHelpers() {
-  const { findPackageJson, readPackageJsonPath, readProductIdentity } = root;
+  const {
+    ensureParentDir,
+    findPackageJson,
+    pathExists,
+    readPackageJsonPath,
+    readProductIdentity,
+    readTextFile,
+    readTrimmedFile,
+    removePath,
+    writeJsonFile,
+  } = root;
   const packageDir = path.join(tempRoot, "package");
   await fs.mkdir(path.join(packageDir, "nested"), { recursive: true });
   await fs.writeFile(path.join(packageDir, "package.json"), JSON.stringify({
@@ -104,6 +138,15 @@ async function verifyPackageJsonHelpers() {
   assert.equal(identity.slug, "example-app");
   assert.equal(identity.envPrefix, "EXAMPLE_APP");
   assert.equal(identity.version, "v1.2.3");
+
+  const dataFile = path.join(packageDir, "nested", "data", "item.json");
+  ensureParentDir(dataFile);
+  writeJsonFile(dataFile, { ok: true });
+  assert.equal(pathExists(dataFile), true);
+  assert.equal(readTextFile(dataFile).includes("\"ok\": true"), true);
+  assert.equal(readTrimmedFile(dataFile).endsWith("}"), true);
+  removePath(path.dirname(dataFile), { recursive: true });
+  assert.equal(pathExists(dataFile), false);
 }
 
 function verifyVersionHelpers() {

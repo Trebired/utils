@@ -13,12 +13,14 @@ import {
   toStrictInteger,
 } from "./numbers.js";
 import {
+  errorMessage,
   normalizedEntryValue,
   normalizedStringList,
   onlyString,
   toLowerString,
   toTrimmedString,
   uniqueStringList,
+  uniqueText,
 } from "./text.js";
 
 function toBooleanFlag(value: unknown): boolean {
@@ -49,6 +51,7 @@ const normalizers = Object.freeze({
     clampNumber,
     clampPercent,
     clampPercentOrNull,
+    errorMessage,
     mibToBytes,
     normalizedEntryValue,
     normalizedStringList,
@@ -64,6 +67,7 @@ const normalizers = Object.freeze({
     toNumberOrZero,
     toString: toTrimmedString,
     uniqueStringList,
+    uniqueText,
 });
 
 export {

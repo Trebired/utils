@@ -8,6 +8,7 @@
   "#8jjudcbvq27r": "./src/version/index.ts",
   "#95xiky7hs01o": "./scripts/verify/pack.mjs",
   "#a7vvitxyqz00": "./src/pure/tree.ts",
+  "#b3jce0irw7gm": "./src/crypto/index.ts",
   "#blmvdinpwsxc": "./scripts/verify/runtime.mjs",
   "#bvb4yenohepr": "./src/browser.ts",
   "#dgcyl9mounsu": "./src/product/index.ts",
@@ -27,6 +28,7 @@
   "#uknlf3i5jtc0": "./src/pure/records.ts",
   "#v4q9hvcepeuc": "./src/package-json/index.ts",
   "#w9bojhprv1qz": "./src/index.ts",
+  "#wh1nyz3ti8rp": "./src/filesystem/index.ts",
   "#z3jh7mgymkh7": "./src/pure/logic.ts",
   "#z719fq6dcu3e": "./src/pure/normalizers.ts",
   "#zzc604sab5c7": "./src/pure/text.ts"

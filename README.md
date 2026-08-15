@@ -8,10 +8,13 @@ The package exposes shared helpers from the root import:
 import {
   clonePlain,
   normalizers,
+  readTextFile,
   readEnvFile,
   readPackageJson,
   readProductIdentity,
+  sha256Hex,
   slugText,
+  time,
   toObject,
   toString,
 } from "@trebired/utils";
@@ -19,5 +22,5 @@ import {
 
 ## Exports
 
-- `@trebired/utils`: pure value, env, package metadata, product identity, and version helpers.
+- `@trebired/utils`: pure value, env, filesystem, hashing, package metadata, product identity, and version helpers.
 - Platform-style trimming and strict parsing helpers are exposed through `normalizers` and explicit names such as `toTrimmedString` and `toStrictInteger`.
