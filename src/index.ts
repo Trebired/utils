@@ -14,10 +14,12 @@ export {
   toPositiveInteger,
 } from "./pure/numbers.js";
 export {
+  clonePlain,
   compactRecord,
   cloneJson,
   freezeRecord,
   hasOwn,
+  isPlainObject,
   isRecord,
   objectEntries,
   toObject,

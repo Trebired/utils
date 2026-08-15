@@ -19,10 +19,12 @@ function importDist(relativePath) {
 
 function verifyPureHelpers() {
   const {
+    clonePlain,
     compactArray,
     compactRecord,
     envToken,
     firstString,
+    isPlainObject,
     isTruthy,
     slugText,
     toPositiveInteger,
@@ -34,10 +36,13 @@ function verifyPureHelpers() {
   assert.equal(slugText("Hello, World"), "hello-world");
   assert.equal(envToken("hello-world"), "HELLO_WORLD");
   assert.equal(firstString(["", "next"]), "next");
+  assert.equal(isPlainObject(Object.create(null)), true);
+  assert.equal(isPlainObject(new Date()), false);
   assert.equal(isTruthy("yes"), true);
   assert.equal(toPositiveInteger("0", 3), 3);
   assert.deepEqual(compactArray([1, null, 2]), [1, 2]);
   assert.deepEqual(compactRecord({ a: "", b: 2, c: null }), { b: 2 });
+  assert.deepEqual(clonePlain({ a: [{ b: 1 }] }), { a: [{ b: 1 }] });
 }
 
 async function verifyEnvHelpers() {

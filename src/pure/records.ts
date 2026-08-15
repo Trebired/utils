@@ -4,6 +4,12 @@ function isRecord(value: unknown): value is PlainRecord {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
 }
 
+function isPlainObject(value: unknown): value is PlainRecord {
+  if (!value || typeof value !== "object") return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
 function toObject(value: unknown): PlainRecord {
   return isRecord(value) ? value : {};
 }
@@ -35,11 +41,22 @@ function cloneJson<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
+function clonePlain(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(clonePlain);
+  if (!isPlainObject(value)) return value;
+
+  const out: PlainRecord = {};
+  for (const key of Object.keys(value)) out[key] = clonePlain(value[key]);
+  return out;
+}
+
 export {
+  clonePlain,
   compactRecord,
   cloneJson,
   freezeRecord,
   hasOwn,
+  isPlainObject,
   isRecord,
   objectEntries,
   toObject,

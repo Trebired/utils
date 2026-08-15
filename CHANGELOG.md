@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.2.1
+
+- Added shared plain-object detection and recursive plain cloning helpers.
+
 ## 0.2.0
 
 - Added shared version parsing and package `forVersion` validation helpers.

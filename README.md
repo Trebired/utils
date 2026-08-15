@@ -5,7 +5,7 @@ Shared Trebired utility helpers for pure value normalization, environment files,
 The package keeps the root import pure:
 
 ```ts
-import { toString, toObject, slugText } from "@trebired/utils";
+import { clonePlain, toString, toObject, slugText } from "@trebired/utils";
 ```
 
 Node and filesystem helpers are explicit subpath imports:
