@@ -1,13 +1,14 @@
 function now(): string {
-  return new Date().toISOString();
+  return nowIso();
 }
 
 function nowDate(): Date {
   return new Date();
 }
 
-function nowIso(): string {
-  return nowDate().toISOString();
+function nowIso(value?: Date | number | string | null): string {
+  if (value == null) return nowDate().toISOString();
+  return new Date(value).toISOString();
 }
 
 function nowMs(): number {

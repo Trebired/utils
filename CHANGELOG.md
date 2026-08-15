@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.4.3
+
+- Extended `nowIso()` to accept existing date, timestamp, or ISO-compatible string inputs.
+
 ## 0.4.2
 
 - Added shared package identity/log-group metadata helpers and explicit date/ISO time helpers for package runtimes.
