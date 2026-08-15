@@ -149,6 +149,8 @@ export {
   monotonicMs,
   normalizeLocale,
   now,
+  nowDate,
+  nowIso,
   nowMs,
   parseDateMs,
   parseDateMsOrNull,

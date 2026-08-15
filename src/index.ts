@@ -149,6 +149,8 @@ export {
   monotonicMs,
   normalizeLocale,
   now,
+  nowDate,
+  nowIso,
   nowMs,
   parseDateMs,
   parseDateMsOrNull,
@@ -193,6 +195,11 @@ export {
   readPackageJsonPath,
   readPackageJsonUrl,
 } from "./package-json/index.js";
+export {
+  packageScope,
+  packageSlug,
+  readPackageIdentity,
+} from "./package-identity/index.js";
 export {
   productEnvPrefix,
   productSlug,
@@ -269,6 +276,10 @@ export type {
   TimeoutRef,
 } from "./pure/timers.js";
 export type { PackageJson } from "./package-json/index.js";
+export type {
+  PackageIdentity,
+  PackageIdentityOptions,
+} from "./package-identity/index.js";
 export type {
   ProcessEnvObjectOptions,
 } from "./env/process.js";

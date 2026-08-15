@@ -2,6 +2,14 @@ function now(): string {
   return new Date().toISOString();
 }
 
+function nowDate(): Date {
+  return new Date();
+}
+
+function nowIso(): string {
+  return nowDate().toISOString();
+}
+
 function nowMs(): number {
   return Date.now();
 }
@@ -336,6 +344,8 @@ export {
   monotonicMs,
   normalizeLocale,
   now,
+  nowDate,
+  nowIso,
   nowMs,
   parseDateMs,
   parseDateMsOrNull,

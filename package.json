@@ -1,6 +1,6 @@
 {
   "name": "@trebired/utils",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Shared Trebired utility helpers.",
   "type": "module",
   "private": false,

@@ -22,6 +22,7 @@
   "#ovujy5t75bko": "./.trebired/logger/config.ts",
   "#p8tqzyrg2ti6": "./src/env/index.ts",
   "#qq7cai69xrsh": "./src/env/process.ts",
+  "#qr153gt1chi2": "./src/package-identity/index.ts",
   "#r0il9c3mxso3": "./scripts/prepare-dist.mjs",
   "#ru8pgsakzk3n": "./src/pure/result-data.ts",
   "#sl2j2wa2iqtj": "./src/pure/format.ts",

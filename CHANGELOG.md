@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.4.2
+
+- Added shared package identity/log-group metadata helpers and explicit date/ISO time helpers for package runtimes.
+
 ## 0.4.1
 
 - Added shared runtime label helpers, local listening-port helpers, and configurable env assignment formatting.
