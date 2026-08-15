@@ -30,5 +30,6 @@ export type {
 export type {
   EnvAssignment,
   EnvMap,
+  FormatEnvAssignmentOptions,
 } from "./lines.js";
 export type { ProcessEnvObjectOptions } from "./process.js";

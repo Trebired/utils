@@ -5,6 +5,9 @@ type EnvAssignment = {
   key: string;
   value: string;
 };
+type FormatEnvAssignmentOptions = {
+  quote?: boolean;
+};
 
 function stripEnvQuotes(value: unknown): string {
   const text = String(value || "");
@@ -37,8 +40,15 @@ function parseEnvText(text: unknown): EnvMap {
   return out;
 }
 
-function formatEnvAssignment(key: unknown, value: unknown): string {
-  return `${toTrimmedString(key)}=${JSON.stringify(String(value ?? ""))}`;
+function formatEnvAssignment(
+  key: unknown,
+  value: unknown,
+  options: FormatEnvAssignmentOptions = {},
+): string {
+  const safeValue = String(value ?? "");
+  return `${toTrimmedString(key)}=${
+  options.quote === false ? safeValue : JSON.stringify(safeValue)
+  }`;
 }
 
 function sortEnvKeys(keys: readonly unknown[]): string[] {
@@ -74,4 +84,4 @@ export {
   stripEnvQuotes,
   updateEnvTextValue,
 };
-export type { EnvAssignment, EnvMap };
+export type { EnvAssignment, EnvMap, FormatEnvAssignmentOptions };

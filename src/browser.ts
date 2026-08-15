@@ -66,6 +66,10 @@ export {
   toBooleanFlagOr,
 } from "./pure/normalizers.js";
 export {
+  normalizeRuntimeKey,
+  runtimeLabel,
+} from "./pure/runtime.js";
+export {
   cloneJson,
   clonePlain,
   compactRecord,

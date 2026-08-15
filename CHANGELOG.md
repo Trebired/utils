@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.4.1
+
+- Added shared runtime label helpers, local listening-port helpers, and configurable env assignment formatting.
+
 ## 0.4.0
 
 - Added shared text error/unique helpers, numeric integer set helpers, result metadata helpers, date label/partition formatting helpers, Node filesystem helpers, and SHA-256 hashing.

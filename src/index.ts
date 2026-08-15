@@ -66,6 +66,10 @@ export {
   toBooleanFlagOr,
 } from "./pure/normalizers.js";
 export {
+  normalizeRuntimeKey,
+  runtimeLabel,
+} from "./pure/runtime.js";
+export {
   cloneJson,
   clonePlain,
   compactRecord,
@@ -208,6 +212,12 @@ export {
 } from "./filesystem/index.js";
 export { sha256Hex } from "./crypto/index.js";
 export {
+  getLocalListeningPortPids,
+  isLocalPortListening,
+  listenOnConfiguredPort,
+  toPortNumber,
+} from "./system/port.js";
+export {
   assertCompatibleForVersion,
   isCompatibleVersion,
   parseVersion,
@@ -216,6 +226,7 @@ export {
 export type {
   EnvAssignment,
   EnvMap,
+  FormatEnvAssignmentOptions,
 } from "./env/lines.js";
 export type {
   EnvFileKind,
