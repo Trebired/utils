@@ -31,9 +31,12 @@ function verifyPureHelpers() {
     slugText,
     toPositiveInteger,
     toStrictInteger,
+    toArray,
     toString,
     toTrimmedString,
   } = root;
+  const defaultArray = toArray([1, 2]);
+  defaultArray.push(3);
   assert.equal(toString(null, "fallback"), "fallback");
   assert.equal(toString("  value  "), "  value  ");
   assert.equal(toTrimmedString("  value  "), "value");
@@ -52,6 +55,7 @@ function verifyPureHelpers() {
   assert.equal(isTruthy("yes"), true);
   assert.equal(toPositiveInteger("0", 3), 3);
   assert.deepEqual(compactArray([1, null, 2]), [1, 2]);
+  assert.deepEqual(defaultArray, [1, 2, 3]);
   assert.deepEqual(compactRecord({ a: "", b: 2, c: null }), { b: 2 });
   assert.deepEqual(clonePlain({ a: [{ b: 1 }] }), { a: [{ b: 1 }] });
 }

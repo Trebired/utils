@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.3.1
+
+- Made `toArray()` default to `any[]` for compatibility with older object utility imports.
+
 ## 0.3.0
 
 - Added shared normalizer, formatting, record, graph, HTML, id, time, timer, and small logic helpers to the root API.
