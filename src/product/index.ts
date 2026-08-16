@@ -12,6 +12,7 @@ import {
 import type { PackageJson } from "#v4q9hvcepeuc";
 
 type ProductIdentity = {
+  displayName: string;
   domain: string;
   envPrefix: string;
   name: string;
@@ -29,7 +30,7 @@ type ProductIdentityOptions = {
 };
 
 function readProductConfig(packageJson: PackageJson | null): Record<string, unknown> {
-  return toObject(packageJson?.config);
+  return toObject(toObject(packageJson?.config).product);
 }
 
 function normalizeProductVersion(value: unknown): string {
@@ -64,14 +65,16 @@ function readProductIdentity(options: ProductIdentityOptions = {}): ProductIdent
   const packageJson = resolveProductPackageJson(options);
   const config = readProductConfig(packageJson);
   const name = firstString([
-      config.productName,
+      config.name,
       packageJson?.name,
       options.fallbackName,
     ], "Product");
-  const website = firstString([config.productWebsite, packageJson?.homepage]);
-  const domain = firstString([config.productDomain, website.replace(/^https?:\/\//u, "")]);
+  const displayName = firstString([config.displayName, name]);
+  const website = firstString([config.website, packageJson?.homepage]);
+  const domain = website.replace(/^https?:\/\//u, "");
   const slug = productSlug(name);
   return {
+    displayName,
     domain,
     envPrefix: productEnvPrefix(name),
     name,

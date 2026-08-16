@@ -105,39 +105,58 @@ async function verifyEnvHelpers() {
   delete process.env.TREBIRED_UTILS_VERIFY;
 }
 
-async function verifyPackageJsonHelpers() {
-  const {
-    ensureParentDir,
-    findPackageJson,
-    pathExists,
-    readPackageJsonPath,
-    readProductIdentity,
-    readTextFile,
-    readTrimmedFile,
-    removePath,
-    writeJsonFile,
-  } = root;
-  const packageDir = path.join(tempRoot, "package");
+async function writePackageJsonFixture(packageDir) {
   await fs.mkdir(path.join(packageDir, "nested"), { recursive: true });
   await fs.writeFile(path.join(packageDir, "package.json"), JSON.stringify({
         config: {
-          productDomain: "example.test",
-          productName: "Example App",
-          productWebsite: "https://example.test",
+          organization: {
+            displayName: "Example Org",
+            name: "example-org",
+            website: "https://example-org.test",
+          },
+          product: {
+            displayName: "Example App",
+            name: "Example App",
+            website: "https://example.test",
+          },
         },
         homepage: "https://fallback.test",
         name: "@scope/example",
         repository: { url: "git@example.test/repo.git" },
         version: "1.2.3",
   }));
-  assert.equal(findPackageJson(path.join(packageDir, "nested")), path.join(packageDir, "package.json"));
-  assert.equal(readPackageJsonPath(path.join(packageDir, "package.json"))?.name, "@scope/example");
-  assert.equal(readPackageJsonPath(path.join(packageDir, "nested", "package.json"))?.name, "@scope/example");
+}
+
+function verifyIdentityHelpers(packageDir) {
+  const { readOrganizationIdentity, readPackageIdentity, readPackageJsonPath, readProductIdentity } = root;
   const identity = readProductIdentity({ startDir: path.join(packageDir, "nested") });
   assert.equal(identity.name, "Example App");
+  assert.equal(identity.displayName, "Example App");
+  assert.equal(identity.domain, "example.test");
   assert.equal(identity.slug, "example-app");
   assert.equal(identity.envPrefix, "EXAMPLE_APP");
   assert.equal(identity.version, "v1.2.3");
+
+  const organization = readOrganizationIdentity({ startDir: path.join(packageDir, "nested") });
+  assert.equal(organization.displayName, "Example Org");
+  assert.equal(organization.name, "example-org");
+  assert.equal(organization.website, "https://example-org.test");
+
+  const packageIdentity = readPackageIdentity({
+      fallbackSlug: "example",
+      packageJson: readPackageJsonPath(path.join(packageDir, "package.json")),
+  });
+  assert.equal(packageIdentity.organizationName, "example-org");
+}
+
+async function verifyPackageJsonHelpers() {
+  const { ensureParentDir, findPackageJson, pathExists, readPackageJsonPath, readTextFile, readTrimmedFile, removePath, writeJsonFile } = root;
+  const packageDir = path.join(tempRoot, "package");
+  await writePackageJsonFixture(packageDir);
+  assert.equal(findPackageJson(path.join(packageDir, "nested")), path.join(packageDir, "package.json"));
+  assert.equal(readPackageJsonPath(path.join(packageDir, "package.json"))?.name, "@scope/example");
+  assert.equal(readPackageJsonPath(path.join(packageDir, "nested", "package.json"))?.name, "@scope/example");
+  verifyIdentityHelpers(packageDir);
 
   const dataFile = path.join(packageDir, "nested", "data", "item.json");
   ensureParentDir(dataFile);

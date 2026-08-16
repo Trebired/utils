@@ -2,6 +2,12 @@
 
 All notable package changes are documented here.
 
+## 0.5.0
+
+- Added `readOrganizationIdentity()` and `OrganizationIdentity`/`OrganizationIdentityOptions` types, reading `package.json#config.organization.{displayName,name,website}`.
+- Changed `readProductIdentity()` to read the nested `package.json#config.product.{displayName,name,website}` shape instead of the flat `config.productName`/`config.productWebsite`/`config.productDomain` keys, matching `config.organization`'s shape. Added `displayName` to `ProductIdentity`.
+- Changed `readPackageIdentity()` to derive `organizationName` through `readOrganizationIdentity()` instead of duck-typing `config.organization.name` itself.
+
 ## 0.4.4
 
 - Made package `forVersion` validation failures emit compact config diagnostics instead of uncaught `Error` source-frame dumps.

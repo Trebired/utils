@@ -16,6 +16,7 @@
   "#f92lb4dxivu3": "./src/env/lines.ts",
   "#gzucaxumky6c": "./src/pure/actions.ts",
   "#hel65rfkqdm4": "./scripts/build/generated/tsconfig.mjs",
+  "#hv1ifufl3hsm": "./src/organization/index.ts",
   "#mh9eq2japawp": "./src/pure/timers.ts",
   "#mxr3q1mg7lii": "./src/env/file.ts",
   "#nevc2b7jkdt3": "./src/system/port.ts",

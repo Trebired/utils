@@ -1,10 +1,10 @@
-import { toObject } from "#uknlf3i5jtc0";
 import { toTrimmedString } from "#zzc604sab5c7";
 import {
   readPackageJsonPath,
   readPackageJsonUrl,
 } from "#v4q9hvcepeuc";
 import type { PackageJson } from "#v4q9hvcepeuc";
+import { readOrganizationIdentity } from "#hv1ifufl3hsm";
 
 type PackageIdentity = {
   buildLogGroup: (...parts: unknown[]) => string;
@@ -45,11 +45,9 @@ function readPackageIdentity(
 ): PackageIdentity {
   const fallbackSlug = toTrimmedString(options.fallbackSlug, "package");
   const packageJson = resolvePackageIdentityJson(options);
-  const packageConfig = toObject(packageJson?.config);
-  const organizationConfig = toObject(packageConfig.organization);
   const packageJsonName = toTrimmedString(packageJson?.name);
   const organizationName =
-  toTrimmedString(organizationConfig.name) || packageScope(packageJsonName);
+  readOrganizationIdentity({ packageJson }).name || packageScope(packageJsonName);
   const name =
   packageJsonName ||
     (organizationName ? `@${organizationName}/${fallbackSlug}` : fallbackSlug);
