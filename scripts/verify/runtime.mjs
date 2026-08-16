@@ -95,7 +95,7 @@ async function verifyEnvHelpers() {
   } = root;
   const envFile = path.join(tempRoot, ".env");
   assert.deepEqual(parseEnvText("export A=1\nB=\"two\"\n# skip\n"), { A: "1", B: "two" });
-  writeEnvFileValue(envFile, "NAME", "Operlorn");
+  writeEnvFileValue(envFile, "NAME", "Example App");
   writeEnvFileValue(envFile, "PORT", 3100);
   assert.equal(readEnvFile(envFile).PORT, "3100");
   writeEnvFileObject(envFile, { A: 1, B: "two", ENV_FILE: "skip" });
