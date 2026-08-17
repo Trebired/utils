@@ -106,9 +106,12 @@ export {
   envToken,
   errorMessage,
   firstString,
+  joinLogGroup,
   normalizedEntryValue,
   normalizedStringList,
   onlyString,
+  packageScope,
+  packageSlug,
   prefixIfMissing,
   productVersionLabel,
   safeDomId,
@@ -195,11 +198,6 @@ export {
   readPackageJsonPath,
   readPackageJsonUrl,
 } from "./package-json/index.js";
-export {
-  packageScope,
-  packageSlug,
-  readPackageIdentity,
-} from "./package-identity/index.js";
 export { readOrganizationIdentity } from "./organization/index.js";
 export {
   productEnvPrefix,
@@ -277,10 +275,6 @@ export type {
   TimeoutRef,
 } from "./pure/timers.js";
 export type { PackageJson } from "./package-json/index.js";
-export type {
-  PackageIdentity,
-  PackageIdentityOptions,
-} from "./package-identity/index.js";
 export type {
   OrganizationIdentity,
   OrganizationIdentityOptions,

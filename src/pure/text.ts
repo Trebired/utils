@@ -202,13 +202,28 @@ function prefixIfMissing(
   return parts.startsWith(prefix) ? parts : `${prefix}${parts}`;
 }
 
+function packageScope(name: string): string {
+  return /^@([^/]+)\//u.exec(name)?.[1] ?? "";
+}
+
+function packageSlug(name: string): string {
+  return name.replace(/^@[^/]+\//u, "").trim();
+}
+
+function joinLogGroup(...parts: unknown[]): string {
+  return parts.map((part) => toTrimmedString(part)).filter(Boolean).join(".");
+}
+
 export {
   envToken,
   errorMessage,
   firstString,
+  joinLogGroup,
   normalizedEntryValue,
   normalizedStringList,
   onlyString,
+  packageScope,
+  packageSlug,
   prefixIfMissing,
   productVersionLabel,
   safeDomId,

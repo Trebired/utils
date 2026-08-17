@@ -15,7 +15,15 @@ function importDist(relativePath) {
 
 function verifyPureHelpers() {
   verifyStringAndNumberHelpers();
+  verifyPackageNameHelpers();
   verifyObjectAndRuntimeHelpers();
+}
+
+function verifyPackageNameHelpers() {
+  const { joinLogGroup, packageScope, packageSlug } = root;
+  assert.equal(packageScope("@trebired/logger"), "trebired");
+  assert.equal(packageSlug("@trebired/logger"), "logger");
+  assert.equal(joinLogGroup("trebired", "logger", "", "init"), "trebired.logger.init");
 }
 
 function verifyStringAndNumberHelpers() {
@@ -128,7 +136,7 @@ async function writePackageJsonFixture(packageDir) {
 }
 
 function verifyIdentityHelpers(packageDir) {
-  const { readOrganizationIdentity, readPackageIdentity, readPackageJsonPath, readProductIdentity } = root;
+  const { readOrganizationIdentity, readProductIdentity } = root;
   const identity = readProductIdentity({ startDir: path.join(packageDir, "nested") });
   assert.equal(identity.name, "Example App");
   assert.equal(identity.displayName, "Example App");
@@ -141,12 +149,6 @@ function verifyIdentityHelpers(packageDir) {
   assert.equal(organization.displayName, "Example Org");
   assert.equal(organization.name, "example-org");
   assert.equal(organization.website, "https://example-org.test");
-
-  const packageIdentity = readPackageIdentity({
-      fallbackSlug: "example",
-      packageJson: readPackageJsonPath(path.join(packageDir, "package.json")),
-  });
-  assert.equal(packageIdentity.organizationName, "example-org");
 }
 
 async function verifyPackageJsonHelpers() {

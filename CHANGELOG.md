@@ -2,6 +2,13 @@
 
 All notable package changes are documented here.
 
+## 0.6.0
+
+- Removed `readPackageIdentity()`, `PackageIdentity`, and `PackageIdentityOptions`. Compose `readPackageJsonUrl()`/`readPackageJsonPath()`, `readOrganizationIdentity()`, and the new pure helpers below directly instead.
+- Added `packageScope()` and `packageSlug()` to the root and browser exports (moved out of the removed `package-identity` module; unchanged behavior).
+- Added `joinLogGroup(...parts)`, a pure helper that trims and joins non-empty parts with `.` for building dotted log-group names.
+- Removed `config.creator` from `package.json`; unused by any code. `author` remains the only creator/authorship field.
+
 ## 0.5.0
 
 - Added `readOrganizationIdentity()` and `OrganizationIdentity`/`OrganizationIdentityOptions` types, reading `package.json#config.organization.{displayName,name,website}`.
