@@ -9,7 +9,7 @@ import {
   sortEnvKeys,
   updateEnvTextValue,
 } from "./lines.js";
-import type { EnvMap } from "./lines.js";
+import type { EnvMap, FormatEnvAssignmentOptions } from "./lines.js";
 
 type EnvFileKind = "external" | "internal" | string;
 type ReadEnvFileOptions = {
@@ -17,6 +17,9 @@ type ReadEnvFileOptions = {
   envFile?: string;
   kind?: EnvFileKind;
   required?: boolean;
+};
+type WriteEnvFileOptions = FormatEnvAssignmentOptions& {
+  sortKeys?: (keys: string[]) => string[];
 };
 type FrozenEnvMap = Readonly<EnvMap& {
   ENV_FILE: string;
@@ -61,19 +64,28 @@ function readEnvFile(input?: string | ReadEnvFileOptions): FrozenEnvMap {
   return withEnvMetadata(parseEnvText(text), target, options.kind);
 }
 
-function writeEnvFileValue(envFile: unknown, key: unknown, value: unknown): FrozenEnvMap {
+function writeEnvFileValue(
+  envFile: unknown,
+  key: unknown,
+  value: unknown,
+  options: WriteEnvFileOptions = {},
+): FrozenEnvMap {
   const target = path.resolve(toTrimmedString(envFile));
   const safeKey = toTrimmedString(key);
   if (!target) throw new Error("missing-env-file");
   if (!safeKey) throw new Error("missing-env-key");
   if (safeKey === "ENV_FILE") throw new Error("invalid-env-key");
-  const nextText = updateEnvTextValue(readEnvFileText(target, false), safeKey, value);
+  const nextText = updateEnvTextValue(readEnvFileText(target, false), safeKey, value, options);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, nextText, "utf8");
   return withEnvMetadata(parseEnvText(nextText), target, "external");
 }
 
-function writeEnvFileObject(envFile: unknown, entries: unknown): FrozenEnvMap {
+function writeEnvFileObject(
+  envFile: unknown,
+  entries: unknown,
+  options: WriteEnvFileOptions = {},
+): FrozenEnvMap {
   const target = path.resolve(toTrimmedString(envFile));
   if (!target) throw new Error("missing-env-file");
   const out: EnvMap = {};
@@ -82,7 +94,10 @@ function writeEnvFileObject(envFile: unknown, entries: unknown): FrozenEnvMap {
     if (!key || key === "ENV_FILE" || key === "ENV_FILE_KIND" || key === "ENV_FILE_VALUE") continue;
     out[key] = String(valueLike ?? "");
   }
-  const nextText = serializeEnvLines(sortEnvKeys(Object.keys(out)).map((key) => formatEnvAssignment(key, out[key])));
+  const sort = options.sortKeys || sortEnvKeys;
+  const nextText = serializeEnvLines(
+    sort(Object.keys(out)).map((key) => formatEnvAssignment(key, out[key], options)),
+  );
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, nextText, "utf8");
   return withEnvMetadata(parseEnvText(nextText), target, "external");
@@ -94,4 +109,4 @@ export {
   writeEnvFileObject,
   writeEnvFileValue,
 };
-export type { EnvFileKind, FrozenEnvMap, ReadEnvFileOptions };
+export type { EnvFileKind, FrozenEnvMap, ReadEnvFileOptions, WriteEnvFileOptions };

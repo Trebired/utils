@@ -60,7 +60,12 @@ function serializeEnvLines(lines: readonly unknown[]): string {
   return body.length ? `${body.join("\n")}\n` : "";
 }
 
-function updateEnvTextValue(text: unknown, key: string, value: unknown): string {
+function updateEnvTextValue(
+  text: unknown,
+  key: string,
+  value: unknown,
+  options: FormatEnvAssignmentOptions = {},
+): string {
   const out: string[] = [];
   const seen = new Set<string>();
   let replaced = false;
@@ -69,9 +74,9 @@ function updateEnvTextValue(text: unknown, key: string, value: unknown): string 
     if (!assignment || seen.has(assignment.key)) continue;
     seen.add(assignment.key);
     if (assignment.key === key) replaced = true;
-    out.push(formatEnvAssignment(assignment.key, assignment.key === key ? value : assignment.value));
+    out.push(formatEnvAssignment(assignment.key, assignment.key === key ? value : assignment.value, options));
   }
-  if (!replaced) out.push(formatEnvAssignment(key, value));
+  if (!replaced) out.push(formatEnvAssignment(key, value, options));
   return serializeEnvLines(out);
 }
 

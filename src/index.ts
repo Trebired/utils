@@ -191,6 +191,11 @@ export {
   writeProcessEnvValue,
 } from "./env/process.js";
 export {
+  readOptionalNonNegativeEnvNumber,
+  readProcessEnvFlag,
+  readProcessEnvNumber,
+} from "./env/values.js";
+export {
   findPackageJson,
   normalizePackageMetadata,
   readJsonFile,
@@ -238,6 +243,7 @@ export type {
   EnvFileKind,
   FrozenEnvMap,
   ReadEnvFileOptions,
+  WriteEnvFileOptions,
 } from "./env/file.js";
 export type {
   RemovePathOptions,
@@ -282,6 +288,9 @@ export type {
 export type {
   ProcessEnvObjectOptions,
 } from "./env/process.js";
+export type {
+  ReadProcessEnvNumberOptions,
+} from "./env/values.js";
 export type {
   ProductIdentity,
   ProductIdentityOptions,

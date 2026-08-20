@@ -2,6 +2,13 @@
 
 All notable package changes are documented here.
 
+## 0.7.0
+
+- Added a `quote` option (default `true`, matching prior behavior) to `formatEnvAssignment()`, and threaded it through `writeEnvFileValue()`/`writeEnvFileObject()`/`updateEnvTextValue()` so consumers that need unquoted `.env` output can opt out of the default `KEY="value"` quoting.
+- Added a `sortKeys` option to `writeEnvFileObject()` for supplying a custom key ordering instead of the default alphabetical `sortEnvKeys()`.
+- Fixed `writeProcessEnvObject()`'s `useEnvFileValue` handling to respect `onlyMissing`: previously it always overwrote `process.env.ENV_FILE` from `ENV_FILE_VALUE` regardless of `onlyMissing`, letting a lower-precedence env file's `ENV_FILE` value clobber one the process was already launched with.
+- Added `readProcessEnvFlag(name, fallback)`, `readProcessEnvNumber(name, fallback, options?)`, and `readOptionalNonNegativeEnvNumber(value)`, pure env-value parsing helpers with no prior equivalent in this package.
+
 ## 0.6.0
 
 - Removed `readPackageIdentity()`, `PackageIdentity`, and `PackageIdentityOptions`. Compose `readPackageJsonUrl()`/`readPackageJsonPath()`, `readOrganizationIdentity()`, and the new pure helpers below directly instead.

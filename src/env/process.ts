@@ -65,7 +65,11 @@ function writeProcessEnvObject(entries: unknown, options: ProcessEnvObjectOption
     process.env[key] = value;
     out[key] = value;
   }
-  if (options.useEnvFileValue && src.ENV_FILE_VALUE) {
+  if (
+    options.useEnvFileValue &&
+      src.ENV_FILE_VALUE &&
+      (!options.onlyMissing || process.env.ENV_FILE == null)
+  ) {
     out.ENV_FILE = writeProcessEnvValue("ENV_FILE", src.ENV_FILE_VALUE);
   }
   return Object.freeze(out);

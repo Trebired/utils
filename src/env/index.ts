@@ -22,10 +22,16 @@ export {
   writeProcessEnvObject,
   writeProcessEnvValue,
 } from "./process.js";
+export {
+  readOptionalNonNegativeEnvNumber,
+  readProcessEnvFlag,
+  readProcessEnvNumber,
+} from "./values.js";
 export type {
   EnvFileKind,
   FrozenEnvMap,
   ReadEnvFileOptions,
+  WriteEnvFileOptions,
 } from "./file.js";
 export type {
   EnvAssignment,
@@ -33,3 +39,4 @@ export type {
   FormatEnvAssignmentOptions,
 } from "./lines.js";
 export type { ProcessEnvObjectOptions } from "./process.js";
+export type { ReadProcessEnvNumberOptions } from "./values.js";
