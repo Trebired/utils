@@ -118,28 +118,28 @@ async function writeConsumerPackageJson(consumerDir, tarballPath) {
 async function writeConsumerSourceFiles(consumerDir) {
   await fs.writeFile(path.join(consumerDir, "index.ts"), [
       'import { slugText } from "@trebired/utils";',
-      'import { parseEnvText } from "@trebired/utils";',
+      'import { requestHeader } from "@trebired/utils";',
       'import { readProductIdentity } from "@trebired/utils";',
       'import { assertCompatibleForVersion } from "@trebired/utils";',
       "",
       'const slug: string = slugText("Hello App");',
-      'const env = parseEnvText("A=1");',
+      'const header = requestHeader({ headers: { "x-test": "1" } }, "x-test");',
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
       "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
       "void slug;",
-      "void env;",
+      "void header;",
       "void identity;",
       "void forVersion;",
     ].join("\n"));
   await fs.writeFile(path.join(consumerDir, "runtime.mjs"), [
       'import { slugText } from "@trebired/utils";',
-      'import { parseEnvText } from "@trebired/utils";',
+      'import { requestHeader } from "@trebired/utils";',
       'import { readProductIdentity } from "@trebired/utils";',
       'import { assertCompatibleForVersion } from "@trebired/utils";',
       "",
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
       "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
-      "console.log(slugText('Hello App'), parseEnvText('A=1').A, identity.version, forVersion);",
+      "console.log(slugText('Hello App'), requestHeader({ headers: { 'x-test': '1' } }, 'x-test'), identity.version, forVersion);",
     ].join("\n"));
   await fs.writeFile(path.join(consumerDir, "browser.ts"), [
       'import { parseVersion, slugText } from "@trebired/utils";',

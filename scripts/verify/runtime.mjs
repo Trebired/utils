@@ -92,25 +92,53 @@ function verifyObjectAndRuntimeHelpers() {
   assert.deepEqual(clonePlain({ a: [{ b: 1 }] }), { a: [{ b: 1 }] });
 }
 
-async function verifyEnvHelpers() {
-  const {
-    parseEnvText,
-    readEnvFile,
-    readProcessEnvValue,
-    writeEnvFileObject,
-    writeEnvFileValue,
-    writeProcessEnvObject,
-  } = root;
-  const envFile = path.join(tempRoot, ".env");
-  assert.deepEqual(parseEnvText("export A=1\nB=\"two\"\n# skip\n"), { A: "1", B: "two" });
-  writeEnvFileValue(envFile, "NAME", "Example App");
-  writeEnvFileValue(envFile, "PORT", 3100);
-  assert.equal(readEnvFile(envFile).PORT, "3100");
-  writeEnvFileObject(envFile, { A: 1, B: "two", ENV_FILE: "skip" });
-  assert.deepEqual(readEnvFile(envFile).A, "1");
-  writeProcessEnvObject({ TREBIRED_UTILS_VERIFY: "ok" });
-  assert.equal(readProcessEnvValue("TREBIRED_UTILS_VERIFY"), "ok");
-  delete process.env.TREBIRED_UTILS_VERIFY;
+function verifySocketHelpers() {
+  const { disconnectSocketHard } = root;
+  let disconnectedWith = null;
+  disconnectSocketHard({ disconnect: (close) => { disconnectedWith = close; } });
+  assert.equal(disconnectedWith, true);
+  assert.doesNotThrow(() => disconnectSocketHard({ disconnect: () => { throw new Error("boom"); } }));
+}
+
+function verifyHttpHelpers() {
+  const { requestHeader, sendJson, setResponseHeader } = root;
+  assert.equal(requestHeader({ headers: { "X-Test": "value" } }, "x-test"), "value");
+  const headers = {};
+  const res = { setHeader: (name, value) => { headers[name] = value; } };
+  setResponseHeader(res, "X-Custom", "1");
+  assert.equal(headers["X-Custom"], "1");
+  let sentBody = null;
+  let sentStatus = null;
+  const jsonRes = {
+    status: (status) => { sentStatus = status; return jsonRes; },
+    json: (body) => { sentBody = body; },
+  };
+  sendJson(jsonRes, { ok: true }, 201);
+  assert.equal(sentStatus, 201);
+  assert.deepEqual(sentBody, { ok: true });
+}
+
+async function verifyPackageConfigHelpers() {
+  const { findPackageConfigPath, loadPackageConfig } = root;
+  const appDir = path.join(tempRoot, "config-app");
+  const nestedDir = path.join(appDir, "nested", "deep");
+  await fs.mkdir(path.join(appDir, ".example-org", "verify-pkg"), { recursive: true });
+  await fs.mkdir(nestedDir, { recursive: true });
+  await fs.writeFile(
+    path.join(appDir, "package.json"),
+    JSON.stringify({ config: { organization: { name: "example-org" } } }),
+  );
+  await fs.writeFile(
+    path.join(appDir, ".example-org", "verify-pkg", "config.ts"),
+    "export default { forVersion: \"0.1.0\", hello: \"world\" };",
+  );
+  const found = await findPackageConfigPath("verify-pkg", { cwd: nestedDir });
+  assert.equal(found, path.join(appDir, ".example-org", "verify-pkg", "config.ts"));
+  const loaded = await loadPackageConfig("verify-pkg", { cwd: nestedDir });
+  assert.deepEqual(loaded.config, { forVersion: "0.1.0", hello: "world" });
+  const missing = await loadPackageConfig("no-such-pkg", { cwd: nestedDir });
+  assert.equal(missing.config, null);
+  assert.equal(missing.configPath, null);
 }
 
 async function writePackageJsonFixture(packageDir) {
@@ -199,7 +227,9 @@ function verifyVersionHelpers() {
 async function main() {
   assert.ok(rootDir);
   verifyPureHelpers();
-  await verifyEnvHelpers();
+  verifySocketHelpers();
+  verifyHttpHelpers();
+  await verifyPackageConfigHelpers();
   await verifyPackageJsonHelpers();
   verifyVersionHelpers();
   console.log("Runtime verification succeeded.");

@@ -2,6 +2,13 @@
 
 All notable package changes are documented here.
 
+## 0.8.0
+
+- Removed the env module (`readEnvFile`, `writeEnvFileValue`, `writeEnvFileObject`, `parseEnvText`, `formatEnvAssignment`, `sortEnvKeys`, `serializeEnvLines`, `updateEnvTextValue`, `stripEnvQuotes`, `parseEnvAssignmentLine`, `readProcessEnv`, `readProcessEnvValue`, `writeProcessEnvValue`, `deleteProcessEnvValues`, `normalizeProcessEnvObject`, `buildProcessEnvObject`, `writeProcessEnvObject`, `readProcessEnvFlag`, `readProcessEnvNumber`, `readOptionalNonNegativeEnvNumber`) and their types. This moved to the new `@trebired/env` package.
+- Added `disconnectSocketHard(socket)`, a defensive `socket.disconnect(true)` wrapper.
+- Added a framework-agnostic HTTP request/response helper module (`requestHeader`, `requestBody`, `requestCookies`, `requestQuery`, `responseSecure`, `setResponseHeader`, `sendJson`, `sendText`, `redirectResponse`, `serverObject`, `serverString`, and the `ServerRequestLike`/`ServerResponseLike`/`HeaderMap`/`CookieOptions` types), relocated from `@trebired/frontend/server`, which now re-exports it.
+- Added `findPackageConfigPath(packageName, options?)` and `loadPackageConfig(packageName, options?)`: find and load a consumer's `.{organization}/<packageName>/config.ts`, the same walk-up-and-dynamically-import mechanism `@trebired/frontend` and `@trebired/bundler` each already reimplement privately for their own config. Organization directory name is read from the caller's own `package.json#config.organization.name` via the existing `readOrganizationIdentity`, not hardcoded.
+
 ## 0.7.0
 
 - Added a `quote` option (default `true`, matching prior behavior) to `formatEnvAssignment()`, and threaded it through `writeEnvFileValue()`/`writeEnvFileObject()`/`updateEnvTextValue()` so consumers that need unquoted `.env` output can opt out of the default `KEY="value"` quoting.
