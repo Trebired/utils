@@ -2,6 +2,11 @@
 
 All notable package changes are documented here.
 
+## 0.9.1
+
+- Fixed `assertForVersionFirst()` applying to programmatic option objects. The key-order rule now runs only when `configPath` is set, so it governs real `.trebired/<package>/config.ts` files and leaves inline or partial option objects alone. 0.9.0 rejected legitimate calls such as `createBootstrap({ logger, subsystems })` and `applyProjectConfigToFrontendBundlerOptions(options, projectConfig)`, where key order carries no meaning.
+- Changed `ForVersionValidationOptions.config` back to optional, since it is only required when a config path is being validated.
+
 ## 0.9.0
 
 - Added `assertForVersionFirst()` and wired it into `assertCompatibleForVersion()` and `resolveForVersion()`. A config must now declare `forVersion` as its first key, so a config cannot bury its version target below other options.

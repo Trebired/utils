@@ -12,7 +12,7 @@ type VersionParts = {
 };
 type ForVersionValidationOptions = {
   compatibility?: VersionCompatibility;
-  config: unknown;
+  config?: unknown;
   configPath?: unknown;
   currentVersion?: unknown;
   expectedVersion?: unknown;
@@ -45,6 +45,8 @@ function parseVersion(value: unknown): VersionParts | null {
 }
 
 function assertForVersionFirst(options: ForVersionValidationOptions): void {
+  if (!toTrimmedString(options.configPath)) return;
+
   const config = options.config;
   const label = versionLabel(options);
   const source = describeVersionSource(options);
