@@ -221,6 +221,7 @@ export {
 } from "./system/port.js";
 export {
   assertCompatibleForVersion,
+  assertForVersionFirst,
   isCompatibleVersion,
   parseVersion,
   resolveForVersion,

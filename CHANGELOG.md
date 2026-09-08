@@ -2,6 +2,11 @@
 
 All notable package changes are documented here.
 
+## 0.9.0
+
+- Added `assertForVersionFirst()` and wired it into `assertCompatibleForVersion()` and `resolveForVersion()`. A config must now declare `forVersion` as its first key, so a config cannot bury its version target below other options.
+- Changed `ForVersionValidationOptions.config` to a required field carrying the config object itself. Validation reads its key order, so a caller that does not pass the object fails with `config object was not provided for validation`. Every package that validates a `forVersion` must pass `config`. There is no opt-out flag.
+
 ## 0.8.0
 
 - Removed the env module (`readEnvFile`, `writeEnvFileValue`, `writeEnvFileObject`, `parseEnvText`, `formatEnvAssignment`, `sortEnvKeys`, `serializeEnvLines`, `updateEnvTextValue`, `stripEnvQuotes`, `parseEnvAssignmentLine`, `readProcessEnv`, `readProcessEnvValue`, `writeProcessEnvValue`, `deleteProcessEnvValues`, `normalizeProcessEnvObject`, `buildProcessEnvObject`, `writeProcessEnvObject`, `readProcessEnvFlag`, `readProcessEnvNumber`, `readOptionalNonNegativeEnvNumber`) and their types. This moved to the new `@trebired/env` package.

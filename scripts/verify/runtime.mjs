@@ -209,19 +209,33 @@ function verifyVersionHelpers() {
   assert.equal(isCompatibleVersion("6.5.0", "6.5.99"), true);
   assert.equal(isCompatibleVersion("6.6.0", "6.5.99"), false);
   assert.equal(assertCompatibleForVersion({
+        config: { forVersion: "6.5.0" },
         forVersion: "6.5.0",
         label: "verify",
         packageVersion: "6.5.99",
     }), "6.5.0");
   assert.equal(resolveForVersion({
+        config: { forVersion: "" },
         packageVersion: "1.2.3",
         requireForVersion: false,
     }), "1.2.3");
   assert.throws(() => assertCompatibleForVersion({
+        config: { forVersion: "6.6.0" },
         forVersion: "6.6.0",
         label: "verify",
         packageVersion: "6.5.99",
     }), /targets 6\.6\.0/u);
+  assert.throws(() => assertCompatibleForVersion({
+        config: { label: "x", forVersion: "6.5.0" },
+        forVersion: "6.5.0",
+        label: "verify",
+        packageVersion: "6.5.99",
+    }), /must declare forVersion first/u);
+  assert.throws(() => assertCompatibleForVersion({
+        forVersion: "6.5.0",
+        label: "verify",
+        packageVersion: "6.5.99",
+    }), /config object was not provided/u);
 }
 
 async function main() {

@@ -125,7 +125,7 @@ async function writeConsumerSourceFiles(consumerDir) {
       'const slug: string = slugText("Hello App");',
       'const header = requestHeader({ headers: { "x-test": "1" } }, "x-test");',
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
-      "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
+      "const forVersion = assertCompatibleForVersion({ config: { forVersion: '1.0.0' }, forVersion: '1.0.0', packageVersion: '1.0.5' });",
       "void slug;",
       "void header;",
       "void identity;",
@@ -138,7 +138,7 @@ async function writeConsumerSourceFiles(consumerDir) {
       'import { assertCompatibleForVersion } from "@trebired/utils";',
       "",
       "const identity = readProductIdentity({ packageJson: { name: '@scope/app', version: '1.0.0' } });",
-      "const forVersion = assertCompatibleForVersion({ forVersion: '1.0.0', packageVersion: '1.0.5' });",
+      "const forVersion = assertCompatibleForVersion({ config: { forVersion: '1.0.0' }, forVersion: '1.0.0', packageVersion: '1.0.5' });",
       "console.log(slugText('Hello App'), requestHeader({ headers: { 'x-test': '1' } }, 'x-test'), identity.version, forVersion);",
     ].join("\n"));
   await fs.writeFile(path.join(consumerDir, "browser.ts"), [

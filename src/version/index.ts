@@ -12,6 +12,7 @@ type VersionParts = {
 };
 type ForVersionValidationOptions = {
   compatibility?: VersionCompatibility;
+  config: unknown;
   configPath?: unknown;
   currentVersion?: unknown;
   expectedVersion?: unknown;
@@ -43,7 +44,25 @@ function parseVersion(value: unknown): VersionParts | null {
   };
 }
 
+function assertForVersionFirst(options: ForVersionValidationOptions): void {
+  const config = options.config;
+  const label = versionLabel(options);
+  const source = describeVersionSource(options);
+
+  if (!config || typeof config !== "object" || Array.isArray(config)) {
+    throwVersionConfigFailure(`${label} config object was not provided for validation: ${source}`);
+  }
+
+  const keys = Object.keys(config as Record<string, unknown>);
+  if (keys[0] === "forVersion") return;
+
+  throwVersionConfigFailure(
+    `${label} config must declare forVersion first, found ${keys[0] || "no keys"}: ${source}`,
+  );
+}
+
 function assertCompatibleForVersion(options: ForVersionValidationOptions): string {
+  assertForVersionFirst(options);
   const source = describeVersionSource(options);
   const label = versionLabel(options);
   const expectedText = expectedVersionText(options);
@@ -114,6 +133,7 @@ function isVersionParts(value: unknown): value is VersionParts {
 
 export {
   assertCompatibleForVersion,
+  assertForVersionFirst,
   isCompatibleVersion,
   parseVersion,
   resolveForVersion,
