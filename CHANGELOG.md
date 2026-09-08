@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.9.2
+
+- Fixed the key-order rule masking the clearer missing-value error. A config file with no `forVersion` at all now fails with `config is missing forVersion` rather than `must declare forVersion first`, since the order rule only applies once the key is present.
+
 ## 0.9.1
 
 - Fixed `assertForVersionFirst()` applying to programmatic option objects. The key-order rule now runs only when `configPath` is set, so it governs real `.trebired/<package>/config.ts` files and leaves inline or partial option objects alone. 0.9.0 rejected legitimate calls such as `createBootstrap({ logger, subsystems })` and `applyProjectConfigToFrontendBundlerOptions(options, projectConfig)`, where key order carries no meaning.

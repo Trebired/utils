@@ -56,7 +56,7 @@ function assertForVersionFirst(options: ForVersionValidationOptions): void {
   }
 
   const keys = Object.keys(config as Record<string, unknown>);
-  if (keys[0] === "forVersion") return;
+  if (!keys.includes("forVersion") || keys[0] === "forVersion") return;
 
   throwVersionConfigFailure(
     `${label} config must declare forVersion first, found ${keys[0] || "no keys"}: ${source}`,
