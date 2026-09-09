@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.9.3
+
+- Fixed the key-order rule breaking callers that do not pass `config`. Omitting it now skips the check instead of failing, so a package published before the option existed keeps working. Order is still enforced wherever the config object is supplied.
+
 ## 0.9.2
 
 - Fixed the key-order rule masking the clearer missing-value error. A config file with no `forVersion` at all now fails with `config is missing forVersion` rather than `must declare forVersion first`, since the order rule only applies once the key is present.

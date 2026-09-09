@@ -48,18 +48,13 @@ function assertForVersionFirst(options: ForVersionValidationOptions): void {
   if (!toTrimmedString(options.configPath)) return;
 
   const config = options.config;
-  const label = versionLabel(options);
-  const source = describeVersionSource(options);
-
-  if (!config || typeof config !== "object" || Array.isArray(config)) {
-    throwVersionConfigFailure(`${label} config object was not provided for validation: ${source}`);
-  }
+  if (!config || typeof config !== "object" || Array.isArray(config)) return;
 
   const keys = Object.keys(config as Record<string, unknown>);
   if (!keys.includes("forVersion") || keys[0] === "forVersion") return;
 
   throwVersionConfigFailure(
-    `${label} config must declare forVersion first, found ${keys[0] || "no keys"}: ${source}`,
+    `${versionLabel(options)} config must declare forVersion first, found ${keys[0]}: ${describeVersionSource(options)}`,
   );
 }
 

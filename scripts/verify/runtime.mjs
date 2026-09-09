@@ -232,12 +232,12 @@ function verifyVersionHelpers() {
         label: "verify",
         packageVersion: "6.5.99",
     }), /must declare forVersion first/u);
-  assert.throws(() => assertCompatibleForVersion({
+  assert.equal(assertCompatibleForVersion({
         configPath: ".trebired/verify/config.ts",
         forVersion: "6.5.0",
         label: "verify",
         packageVersion: "6.5.99",
-    }), /config object was not provided/u);
+    }), "6.5.0");
   assert.equal(assertCompatibleForVersion({
         config: { label: "x", forVersion: "6.5.0" },
         forVersion: "6.5.0",
