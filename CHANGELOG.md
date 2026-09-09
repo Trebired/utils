@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.9.4
+
+- Updated the shipped `.trebired/logger/config.ts` `forVersion` to `2.7.0` and the `@trebired/code-discipline` / `@trebired/configs` ranges to `^7.2.0` / `^0.4.0`. The logger config named an older release, so under `@trebired/logger` 2.7 the version check threw and this package's log prefix was dropped.
+
 ## 0.9.3
 
 - Fixed the key-order rule breaking callers that do not pass `config`. Omitting it now skips the check instead of failing, so a package published before the option existed keeps working. Order is still enforced wherever the config object is supplied.
