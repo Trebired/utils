@@ -4,6 +4,9 @@ import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { fileURLToPath } from "node:url";
+import { resolveLogger } from "@package/logger-adapter";
+
+const log = resolveLogger({ source: "@trebired/utils" });
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "trebired-utils-"));
@@ -254,7 +257,7 @@ async function main() {
   await verifyPackageConfigHelpers();
   await verifyPackageJsonHelpers();
   verifyVersionHelpers();
-  console.log("Runtime verification succeeded.");
+  log.info("verify.runtime", "Runtime verification succeeded.");
 }
 
 await main();

@@ -2,6 +2,11 @@
 
 All notable package changes are documented here.
 
+## 0.9.5
+
+- Changed the verification scripts and examples to print through `@trebired/logger-adapter` instead of `console` and `process.stdout`.
+- Added `@trebired/logger-adapter` as a development dependency for the verification scripts.
+
 ## 0.9.4
 
 - Updated the shipped `.trebired/logger/config.ts` `forVersion` to `2.7.0` and the `@trebired/code-discipline` / `@trebired/configs` ranges to `^7.2.0` / `^0.4.0`. The logger config named an older release, so under `@trebired/logger` 2.7 the version check threw and this package's log prefix was dropped.

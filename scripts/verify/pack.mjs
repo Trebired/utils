@@ -3,6 +3,9 @@ import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { resolveLogger } from "@package/logger-adapter";
+
+const log = resolveLogger({ source: "@trebired/utils" });
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "trebired-utils-pack-"));
@@ -19,7 +22,7 @@ async function main() {
   validatePackedEntrypoints(packageJson, tarballEntries);
   validatePackedImports(packageJson, tarballEntries);
   await runConsumerSmokeTest(tarballPath);
-  console.log("Pack verification succeeded.");
+  log.info("verify.pack", "Pack verification succeeded.");
 }
 
 function packPackage() {

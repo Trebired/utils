@@ -8,7 +8,7 @@
     }
   },
   "name": "@trebired/utils",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Shared Trebired utility helpers.",
   "type": "module",
   "private": false,
@@ -44,6 +44,7 @@
     "verify:runtime": "bun ./scripts/verify/runtime.mjs"
   },
   "devDependencies": {
+    "@package/logger-adapter": "npm:@trebired/logger-adapter@^0.5.1",
     "@trebired/code-discipline": "^7.2.0",
     "@trebired/configs": "^0.4.0",
     "@types/bun": "^1.3.14",
