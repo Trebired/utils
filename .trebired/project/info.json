@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "category": "package",
+  "subcategory": "core",
+  "status": "active",
+  "npm": "@trebired/utils",
+  "description": {
+    "en": "Shared helpers that every other package builds on.",
+    "cs": "Sdílené pomocné funkce, na kterých staví všechny ostatní balíčky."
+  }
+}
