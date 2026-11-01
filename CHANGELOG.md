@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.9.7
+
+- Added the shared preset system: `applyPresets`, `loadPresets`, `resolvePresetFile`, `parsePresetId` and `mergePresetConfig`. A config names `<package>/<tool>/<preset>` under `presets.use`, the preset is read from `.<organization>/<tool>/<preset>/config.ts` in that package, and a tool accepts only presets for itself, so one package carries named presets for many tools and every tool resolves them the same way.
+
 ## 0.9.6
 
 - Moved to `@trebired/logger-adapter` 0.6.0, which depends on `@trebired/logger` 3.0.0.
