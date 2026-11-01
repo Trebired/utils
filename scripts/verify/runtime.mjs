@@ -5,6 +5,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { fileURLToPath } from "node:url";
 import { resolveLogger } from "@package/logger-adapter";
+import { verifyPresets } from "./presets.mjs";
 
 const log = resolveLogger({ source: "@trebired/utils" });
 
@@ -257,6 +258,7 @@ async function main() {
   await verifyPackageConfigHelpers();
   await verifyPackageJsonHelpers();
   verifyVersionHelpers();
+  await verifyPresets(root, tempRoot);
   log.info("verify.runtime", "Runtime verification succeeded.");
 }
 

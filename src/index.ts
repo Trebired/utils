@@ -196,6 +196,13 @@ export {
 } from "./package-json/index.js";
 export { readOrganizationIdentity } from "./organization/index.js";
 export {
+  applyPresets,
+  loadPresets,
+  mergePresetConfig,
+  parsePresetId,
+  resolvePresetFile,
+} from "./presets/index.js";
+export {
   productEnvPrefix,
   productSlug,
   readProductIdentity,
@@ -277,6 +284,14 @@ export type {
   OrganizationIdentity,
   OrganizationIdentityOptions,
 } from "./organization/index.js";
+export type {
+  AppliedPresets,
+  ApplyPresetsOptions,
+  LoadedPreset,
+  LoadPresetsOptions,
+  PresetReference,
+  PresetToolOptions,
+} from "./presets/index.js";
 export type {
   ProductIdentity,
   ProductIdentityOptions,
