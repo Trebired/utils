@@ -1,0 +1,117 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "#3z8gicoc3at5": [
+        "../../../src/pure/booleans.ts"
+      ],
+      "#4ftpdyn7z6bc": [
+        "../../../src/pure/time.ts"
+      ],
+      "#4n8ejv5sqlxb": [
+        "../../../src/pure/html.ts"
+      ],
+      "#5q6azwe3z8lo": [
+        "../../../src/pure/numbers.ts"
+      ],
+      "#6sp9czm3gvqc": [
+        "../../../src/pure/id.ts"
+      ],
+      "#6ubdurbhu0vh": [
+        "../../../src/presets/index.ts"
+      ],
+      "#7e2z555nahj1": [
+        "../../../src/pure/arrays.ts"
+      ],
+      "#8jjudcbvq27r": [
+        "../../../src/version/index.ts"
+      ],
+      "#95xiky7hs01o": [
+        "../../../scripts/verify/pack.mjs"
+      ],
+      "#a7vvitxyqz00": [
+        "../../../src/pure/tree.ts"
+      ],
+      "#b3jce0irw7gm": [
+        "../../../src/crypto/index.ts"
+      ],
+      "#blmvdinpwsxc": [
+        "../../../scripts/verify/runtime.mjs"
+      ],
+      "#bvb4yenohepr": [
+        "../../../src/browser.ts"
+      ],
+      "#dgcyl9mounsu": [
+        "../../../src/product/index.ts"
+      ],
+      "#dsykoxp1lqc1": [
+        "../../../src/pure/collections.ts"
+      ],
+      "#ghtts4udjn62": [
+        "../../../scripts/verify/presets.mjs"
+      ],
+      "#gzucaxumky6c": [
+        "../../../src/pure/actions.ts"
+      ],
+      "#hel65rfkqdm4": [
+        "../../../scripts/build/generated/tsconfig.mjs"
+      ],
+      "#hv1ifufl3hsm": [
+        "../../../src/organization/index.ts"
+      ],
+      "#lhw1afy3zbpw": [
+        "../../../src/pure/sockets.ts"
+      ],
+      "#mh9eq2japawp": [
+        "../../../src/pure/timers.ts"
+      ],
+      "#nevc2b7jkdt3": [
+        "../../../src/system/port.ts"
+      ],
+      "#ovujy5t75bko": [
+        "../../logger/config.ts"
+      ],
+      "#pi40wer01noq": [
+        "../../../src/http/index.ts"
+      ],
+      "#r0il9c3mxso3": [
+        "../../../scripts/prepare-dist.mjs"
+      ],
+      "#ru8pgsakzk3n": [
+        "../../../src/pure/result-data.ts"
+      ],
+      "#sl2j2wa2iqtj": [
+        "../../../src/pure/format.ts"
+      ],
+      "#t9mcenqj9bi9": [
+        "../../../src/pure/runtime.ts"
+      ],
+      "#txfsmhvkmyzj": [
+        "../../../src/pure/graph.ts"
+      ],
+      "#u8fis9cma9lf": [
+        "../../../src/package-config/index.ts"
+      ],
+      "#uknlf3i5jtc0": [
+        "../../../src/pure/records.ts"
+      ],
+      "#v4q9hvcepeuc": [
+        "../../../src/package-json/index.ts"
+      ],
+      "#w9bojhprv1qz": [
+        "../../../src/index.ts"
+      ],
+      "#wh1nyz3ti8rp": [
+        "../../../src/filesystem/index.ts"
+      ],
+      "#z3jh7mgymkh7": [
+        "../../../src/pure/logic.ts"
+      ],
+      "#z719fq6dcu3e": [
+        "../../../src/pure/normalizers.ts"
+      ],
+      "#zzc604sab5c7": [
+        "../../../src/pure/text.ts"
+      ]
+    }
+  }
+}
