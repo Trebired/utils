@@ -105,8 +105,11 @@ function verifySocketHelpers() {
 }
 
 function verifyHttpHelpers() {
-  const { requestHeader, sendJson, setResponseHeader } = root;
+  const { requestCookies, requestHeader, sendJson, setResponseHeader } = root;
   assert.equal(requestHeader({ headers: { "X-Test": "value" } }, "x-test"), "value");
+  assert.deepEqual(requestCookies({ cookies: { parsed: "1" }, headers: { cookie: "raw=2" } }), { parsed: "1" });
+  assert.deepEqual(requestCookies({ headers: { Cookie: "a=1; b=hello%20world; a=2; broken" } }), { a: "1", b: "hello world" });
+  assert.deepEqual(requestCookies(null), {});
   const headers = {};
   const res = { setHeader: (name, value) => { headers[name] = value; } };
   setResponseHeader(res, "X-Custom", "1");

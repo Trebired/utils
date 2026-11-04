@@ -2,6 +2,10 @@
 
 All notable package changes are documented here.
 
+## 0.9.9
+
+- `requestCookies` parses the `Cookie` header when the request carries no `cookies` object. Before, it returned an empty object unless the app had installed a cookie parser, so a package reading a cookie through it silently saw nothing in an app without one. A parsed `cookies` object still wins, and the first value of a repeated name is kept.
+
 ## 0.9.8
 
 - Moved the repository's own Code Discipline config to `@trebired/code-discipline` 8 and the named preset `@trebired/configs/code-discipline/preset_01` from `@trebired/configs` 0.6.0.

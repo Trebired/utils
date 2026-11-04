@@ -45,8 +45,28 @@ function requestBody(req: ServerRequestLike | null | undefined) {
   return serverObject(req && req.body);
 }
 
+function decodeCookieValue(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
+function parseCookieHeader(header: string) {
+  const cookies: Record<string, unknown> = {};
+  for (const part of header.split(";")) {
+    const index = part.indexOf("=");
+    if (index < 1) continue;
+    const name = part.slice(0, index).trim();
+    if (name && !(name in cookies)) cookies[name] = decodeCookieValue(part.slice(index + 1).trim());
+  }
+  return cookies;
+}
+
 function requestCookies(req: ServerRequestLike | null | undefined) {
-  return serverObject(req && req.cookies);
+  if (req && req.cookies && typeof req.cookies === "object") return req.cookies;
+  return parseCookieHeader(requestHeader(req, "cookie"));
 }
 
 function requestQuery(req: ServerRequestLike | null | undefined) {
